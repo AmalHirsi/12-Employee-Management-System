@@ -4,23 +4,23 @@ CREATE DATABASE     employee_manager_db;
 USE employee_manager_db;
 
 CREATE TABLE department (
-    id INT,
+    id INT NOT NULL,
     name VARCHAR(30),
     PRIMARY KEY(id)
 );
 
 CREATE TABLE role (
-    id INT,
+    id INT NOT NULL,
     title VARCHAR(30),
     salary DECIMAL,
-    department_id INT
-    FOREIGN KEY department_id
+    department_id INT,
+    PRIMARY KEY(id),
+    FOREIGN KEY (department_id)
     REFERENCES department(id)
     ON DELETE SET NULL
-    PRIMARY KEY(id)
 );
 
-CREATE TABLE (
+CREATE TABLE employee (
     id INT,
     first_name VARCHAR(30),
     last_name VARCHAR(30),
