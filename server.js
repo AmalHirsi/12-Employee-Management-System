@@ -18,17 +18,20 @@ const db = mysql.createConnection(
     console.log(`Connected to the courses_db database.`)
 );
 
+function manageTeam() {
 inquirer.prompt({
   
     type: 'choices',
-    message: 'What would you like to do?'
-    name: 'prompt'
+    message: 'What would you like to do?',
+    name: 'prompt',
     choices: [
       "View Employees",
-       "Update Employee Role",
+      "View all Departments",
+      "View all Roles",
        "Add Role",
-       "View all Departments"
-       "Add Department"
+       "Add Department",
+       "Add Employee",
+       "Update Employee Role",
        "Quit"
 
     ]
@@ -39,50 +42,98 @@ inquirer.prompt({
       viewEmployees()
       break;
 
+    case "View all Departments":
+        viewDepartments()
+        break;
+
+     case "View all Roles":
+        viewRoles()
+        break;
+  
+    case "Add department":
+      addDepartment()
+       break;
+
+    case "Add Role":
+        addRole()
+          break;
+    
+     case "Add Employee":
+          addEmployee()
+            break;
+
     case "Update Employee Role":
       updateRole()
         break;
-    
-    case "Add Role":
-      addRole()
-        break;
-
-    case "View all Departments":
-      viewDepartments()
-      break;
-
-    case "Add department":
-     addDepartment()
-      break;
   
     case "Quit"
     connection.quit()
       break;
-  }
  });
+}
 
  function viewEmployees() {
-  const query = 'SELECT * FROM employee';
-  db.query(query.(err, results) => {
-    if (err) throw err;
+  db.query('SELECT * FROM employee', (err,res) => {
     console.log(results);
   });
+  manageTeam();
  }
 
-function updateRole() {
+function viewDepartments() {
+  db.query('SELECT * FROM departments', (err,res) => {
+    console.log(results);
+  });
+  manageTeam();
+ }
 
-  
+
+function viewRoles() {
+  db.query('SELECT * FROM roles', (err,res) => {
+    console.log(results);
+  });
+  manageTeam();
+ }
+
+ function addDepartment() {
+
+  inquirer.prompt({
+    type: 'input',
+    message: 'Enter the name of the Department you would like to add',
+    name: 'newDepartment'
+  })
+  .then(function ({ prompt }) {
+    db.query('INSERT INTO department (name) VALUES (?)',
+    [res.newDepartment],
+    (err,res) => {
+      console.table(res)
+    });
+    manageTeam();
+   });
+}
+
+function addRole() {
+
+  inquirer.prompt({
+    type: 'input',
+    message: 'Enter the name of the Department you would like to add',
+    name: 'newDepartment'
+  })
+  .then(function ({ prompt }) {
+    db.query('INSERT INTO department (name) VALUES (?)',
+    [res.newDepartment],
+    (err,res) => {
+      console.table(res)
+    });
+    manageTeam();
+   });
 }
 
 
 
 
 
-app.use((req, res) => {
-    res.status(404).end();
-  });
-  
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
+
+
+
+
   
