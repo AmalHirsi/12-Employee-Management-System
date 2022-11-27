@@ -66,9 +66,9 @@ inquirer.prompt({
       updateRole()
         break;
   
-    case "Quit"
-    connection.quit()
-      break;
+    case "Quit":
+      quit()
+  }
  });
 }
 
@@ -101,9 +101,9 @@ function viewRoles() {
     message: 'Enter the name of the Department you would like to add',
     name: 'newDepartment'
   })
-  .then(function ({ prompt }) {
+  .then(function(answer) {
     db.query('INSERT INTO department (name) VALUES (?)',
-    [res.newDepartment],
+    [answer.newDepartment],
     (err,res) => {
       console.table(res)
     });
@@ -115,18 +115,79 @@ function addRole() {
 
   inquirer.prompt({
     type: 'input',
-    message: 'Enter the name of the Department you would like to add',
-    name: 'newDepartment'
-  })
-  .then(function ({ prompt }) {
-    db.query('INSERT INTO department (name) VALUES (?)',
-    [res.newDepartment],
+    message: 'Enter the the role you would like to add',
+    name: 'roleName'
+  },
+  {
+  type: 'input',
+  message: 'Enter the salary for this role',
+  name: 'roleSalary'
+},
+  {
+    type: 'input',
+    message: 'Enter department id number for this role',
+    name: 'departmentId'
+},
+)
+  .then(function(answer) {
+    db.query('INSERT INTO role (name) VALUES (?, ?, ?)', [answer.roleName, answer.roleSalary, answer.departmentId],
     (err,res) => {
       console.table(res)
     });
     manageTeam();
    });
 }
+
+function addEmployee() {
+
+  inquirer.prompt({
+    type: 'input',
+    message: 'Enter the Employee Id',
+    name: 'employeeId'
+  },
+  {
+  type: 'input',
+  message: 'Enter the first name',
+  name: 'firstName'
+},
+  {
+    type: 'input',
+    message: 'Enter the last name',
+    name: 'lastName'
+},
+{
+  type: 'input',
+  message: 'Enter the role of the employee',
+  name: 'employeeRole'
+},
+{
+  type: 'input',
+  message: 'Enter the employee manager',
+  name: 'employeeManager'
+},
+)
+  .then(function(answer) {
+    db.query('INSERT INTO employee (id, first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?, ?)', [answer.employeeId, answer.firstName, answer.lastName, answer.employeeRole, answer.employeeManager],
+    (err,res) => {
+      console.table(res)
+    });
+    manageTeam();
+   });
+}
+
+function quit() {
+  console.log("Exiting The Employee Manager System");
+  process.exit();
+}
+
+
+
+
+
+
+
+
+  
 
 
 

@@ -1,0 +1,25 @@
+{
+  "name": "12-employee-management-system",
+  "version": "1.0.0",
+  "description": "## DESCRIPTION This application can be used to create a database for a company, that it will be able to use to track the different departments and employees. Using this application the companies will be able toserach through all of their employees, add and delete employees as well as add new departements and roles.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AmalHirsi/12-Employee-Management-System.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AmalHirsi/12-Employee-Management-System/issues"
+  },
+  "homepage": "https://github.com/AmalHirsi/12-Employee-Management-System#readme",
+  "dependencies": {
+    "inquirer": "^9.1.4",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3"
+  }
+}
