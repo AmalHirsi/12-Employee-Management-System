@@ -1,5 +1,6 @@
 const express = require('express');
 const mysql = require('mysql2');
+const inquirer = require ("inquirer");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -74,22 +75,22 @@ inquirer.prompt({
 
  function viewEmployees() {
   db.query('SELECT * FROM employee', (err,res) => {
-    console.log(results);
+    console.log(res);
   });
   manageTeam();
  }
 
 function viewDepartments() {
-  db.query('SELECT * FROM departments', (err,res) => {
-    console.log(results);
+  db.query('SELECT * FROM department', (err,res) => {
+    console.log(res);
   });
   manageTeam();
  }
 
 
 function viewRoles() {
-  db.query('SELECT * FROM roles', (err,res) => {
-    console.log(results);
+  db.query('SELECT * FROM role', (err,res) => {
+    console.log(res);
   });
   manageTeam();
  }
@@ -180,6 +181,8 @@ function quit() {
   process.exit();
 }
 
+
+manageTeam();
 
 
 
