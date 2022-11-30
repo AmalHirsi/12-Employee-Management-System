@@ -114,7 +114,8 @@ function viewRoles() {
 
 function addRole() {
 
-  inquirer.prompt({
+  inquirer.prompt([
+    {
     type: 'input',
     message: 'Enter the the role you would like to add',
     name: 'roleName'
@@ -128,8 +129,8 @@ function addRole() {
     type: 'input',
     message: 'Enter department id number for this role',
     name: 'departmentId'
-},
-)
+  }
+  ])
   .then(function(answer) {
     db.query('INSERT INTO role (name) VALUES (?, ?, ?)', [answer.roleName, answer.roleSalary, answer.departmentId],
     (err,res) => {
@@ -141,7 +142,8 @@ function addRole() {
 
 function addEmployee() {
 
-  inquirer.prompt({
+  inquirer.prompt([
+    {
     type: 'input',
     message: 'Enter the Employee Id',
     name: 'employeeId'
@@ -166,7 +168,7 @@ function addEmployee() {
   message: 'Enter the employee manager',
   name: 'employeeManager'
 },
-)
+])
   .then(function(answer) {
     db.query('INSERT INTO employee (id, first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?, ?)', [answer.employeeId, answer.firstName, answer.lastName, answer.employeeRole, answer.employeeManager],
     (err,res) => {
