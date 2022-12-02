@@ -75,24 +75,24 @@ inquirer.prompt({
 
  function viewEmployees() {
   db.query('SELECT * FROM employee', (err,res) => {
-    console.log(res);
+    console.table(res);
+    manageTeam();
   });
-  manageTeam();
  }
 
 function viewDepartments() {
   db.query('SELECT * FROM department', (err,res) => {
-    console.log(res);
+    console.table(res);
+    manageTeam();
   });
-  manageTeam();
  }
 
 
 function viewRoles() {
   db.query('SELECT * FROM role', (err,res) => {
-    console.log(res);
+    console.table(res);
+    manageTeam();
   });
-  manageTeam();
  }
 
  function addDepartment() {
@@ -106,9 +106,9 @@ function viewRoles() {
     db.query('INSERT INTO department (name) VALUES (?)',
     [answer.newDepartment],
     (err,res) => {
-      console.table(res)
+      console.log(res)
+      manageTeam();
     });
-    manageTeam();
    });
 }
 
@@ -132,11 +132,12 @@ function addRole() {
   }
   ])
   .then(function(answer) {
-    db.query('INSERT INTO role (name) VALUES (?, ?, ?)', [answer.roleName, answer.roleSalary, answer.departmentId],
+    db.query('INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)', [answer.roleName, answer.roleSalary, answer.departmentId],
     (err,res) => {
+      console.log(err);
       console.table(res)
+      manageTeam();
     });
-    manageTeam();
    });
 }
 
@@ -165,7 +166,7 @@ function addEmployee() {
 },
 {
   type: 'input',
-  message: 'Enter the employee manager',
+  message: 'Enter the employee manager id',
   name: 'employeeManager'
 },
 ])
@@ -173,16 +174,16 @@ function addEmployee() {
     db.query('INSERT INTO employee (id, first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?, ?)', [answer.employeeId, answer.firstName, answer.lastName, answer.employeeRole, answer.employeeManager],
     (err,res) => {
       console.table(res)
+      manageTeam();
     });
-    manageTeam();
    });
 }
+
 
 function quit() {
   console.log("Exiting The Employee Manager System");
   process.exit();
 }
-
 
 manageTeam();
 
